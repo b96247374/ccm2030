@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء أيقونات التطبيق</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #1f2937, #374151);
+            color: white;
+            min-height: 100vh;
+        }
+        .icon-container {
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #ffffff;
+            margin: 10px;
+            border-radius: 10px;
+        }
+        .download-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+        .download-btn:hover {
+            background: #2563eb;
+        }
+        .title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #60a5fa;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">🎨 إنشاء أيقونات نظام التقارير العسكرية</h1>
+    
+    <div class="icon-container">
+        <canvas id="canvas16" width="16" height="16"></canvas>
+        <button class="download-btn" onclick="downloadIcon('canvas16', 'favicon-16x16.png')">تحميل 16x16</button>
+    </div>
+    
+    <div class="icon-container">
+        <canvas id="canvas32" width="32" height="32"></canvas>
+        <button class="download-btn" onclick="downloadIcon('canvas32', 'favicon-32x32.png')">تحميل 32x32</button>
+    </div>
+    
+    <div class="icon-container">
+        <canvas id="canvas180" width="180" height="180"></canvas>
+        <button class="download-btn" onclick="downloadIcon('canvas180', 'apple-touch-icon.png')">تحميل 180x180</button>
+    </div>
+    
+    <div class="icon-container">
+        <canvas id="canvas192" width="192" height="192"></canvas>
+        <button class="download-btn" onclick="downloadIcon('canvas192', 'android-chrome-192x192.png')">تحميل 192x192</button>
+    </div>
+    
+    <div class="icon-container">
+        <canvas id="canvas512" width="512" height="512"></canvas>
+        <button class="download-btn" onclick="downloadIcon('canvas512', 'android-chrome-512x512.png')">تحميل 512x512</button>
+    </div>
+
+    <script>
+        function createIcon(canvasId, size) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = '#1f2937';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Military badge shape
+            ctx.fillStyle = '#fbbf24';
+            ctx.beginPath();
+            ctx.moveTo(size * 0.5, size * 0.1);
+            ctx.lineTo(size * 0.8, size * 0.3);
+            ctx.lineTo(size * 0.9, size * 0.6);
+            ctx.lineTo(size * 0.7, size * 0.9);
+            ctx.lineTo(size * 0.3, size * 0.9);
+            ctx.lineTo(size * 0.1, size * 0.6);
+            ctx.lineTo(size * 0.2, size * 0.3);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Inner circle
+            ctx.fillStyle = '#1f2937';
+            ctx.beginPath();
+            ctx.arc(size * 0.5, size * 0.5, size * 0.25, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Center star
+            ctx.fillStyle = '#fbbf24';
+            ctx.font = `${size * 0.2}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('★', size * 0.5, size * 0.5);
+            
+            // Add "R" for Reports
+            if (size >= 32) {
+                ctx.fillStyle = '#ffffff';
+                ctx.font = `bold ${size * 0.15}px Arial`;
+                ctx.fillText('R', size * 0.5, size * 0.75);
+            }
+        }
+
+        function downloadIcon(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        // Generate all icons
+        createIcon('canvas16', 16);
+        createIcon('canvas32', 32);
+        createIcon('canvas180', 180);
+        createIcon('canvas192', 192);
+        createIcon('canvas512', 512);
+    </script>
+</body>
+</html>
